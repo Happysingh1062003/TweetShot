@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TweetShot — Beautiful Tweet Screenshots</title>
+  <meta name="description" content="Convert any tweet into a stunning, customizable screenshot." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📸</text></svg>" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button id="menu-btn" class="menu-btn" aria-label="Menu" style="display: none;">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <a href="/" class="logo">tweetshot</a>
+    </div>
+    <div class="header-end">
+      <a href="https://github.com" target="_blank" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Presets -->
+      <div class="sec open">
+        <button class="sec-head" data-sec="presets">
+          <span>Presets</span>
+          <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="sec-body">
+          <div id="preset-list" class="presets"></div>
+        </div>
+      </div>
+
+      <!-- Background -->
+      <div class="sec open">
+        <button class="sec-head" data-sec="bg">
+          <span>Background</span>
+          <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="sec-body">
+          <div id="grad-grid" class="grad-grid"></div>
+          <div class="row">
+            <label>Color</label>
+            <input type="color" id="bg-color" value="#1a1a2e" />
+          </div>
+          <div class="row">
+            <label>Custom</label>
+            <div class="grad-build">
+              <input type="color" id="gc1" value="#667eea" />
+              <input type="color" id="gc2" value="#764ba2" />
+              <input type="range" id="g-angle" min="0" max="360" value="135" />
+              <span class="row-val" id="g-angle-v">135°</span>
+            </div>
+          </div>
+          <div class="row">
+            <label>Corner Radius</label>
+            <input type="range" id="bg-radius" min="0" max="40" value="12" />
+            <span class="row-val" id="bg-radius-v">12</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="sec open">
+        <button class="sec-head" data-sec="card">
+          <span>Card</span>
+          <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="sec-body">
+          <div class="row">
+            <label>Theme</label>
+            <div class="btn-group" id="theme-group">
+              <button class="active" data-theme="light">Light</button>
+              <button data-theme="dark">Dark</button>
+              <button data-theme="dim">Dim</button>
+            </div>
+          </div>
+          <div class="row">
+            <label>Radius</label>
+            <input type="range" id="card-radius" min="0" max="32" value="16" />
+            <span class="row-val" id="card-radius-v">16</span>
+          </div>
+          <div class="row">
+            <label>Shadow</label>
+            <input type="range" id="shadow" min="0" max="100" value="40" />
+            <span class="row-val" id="shadow-v">40</span>
+          </div>
+          <div class="row">
+            <label>Border</label>
+            <label class="tog"><input type="checkbox" id="card-border" /><span class="tog-track"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layout -->
+      <div class="sec open">
+        <button class="sec-head" data-sec="layout">
+          <span>Layout</span>
+          <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="sec-body">
+          <div class="row">
+            <label>Padding</label>
+            <input type="range" id="padding" min="0" max="120" value="48" />
+            <span class="row-val" id="padding-v">48</span>
+          </div>
+          <div class="row">
+            <label>Width</label>
+            <input type="range" id="width" min="320" max="600" value="480" />
+            <span class="row-val" id="width-v">480</span>
+          </div>
+          <div class="row">
+            <label>Ratio</label>
+            <div class="btn-group" id="ratio-group">
+              <button class="active" data-ratio="auto">Auto</button>
+              <button data-ratio="1:1">1:1</button>
+              <button data-ratio="4:3">4:3</button>
+              <button data-ratio="16:9">16:9</button>
+            </div>
+          </div>
+          <div class="row">
+            <label>Scale</label>
+            <input type="range" id="font-scale" min="0.8" max="1.4" value="1" step="0.05" />
+            <span class="row-val" id="font-scale-v">1x</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visibility -->
+      <div class="sec">
+        <button class="sec-head" data-sec="vis">
+          <span>Visibility</span>
+          <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="sec-body">
+          <div class="row"><label>Avatar</label><label class="tog"><input type="checkbox" id="v-avatar" checked /><span class="tog-track"></span></label></div>
+          <div class="row"><label>Metrics</label><label class="tog"><input type="checkbox" id="v-metrics" checked /><span class="tog-track"></span></label></div>
+          <div class="row"><label>Time</label><label class="tog"><input type="checkbox" id="v-time" checked /><span class="tog-track"></span></label></div>
+          <div class="row"><label>Verified</label><label class="tog"><input type="checkbox" id="v-verified" checked /><span class="tog-track"></span></label></div>
+          <div class="row"><label>X Logo</label><label class="tog"><input type="checkbox" id="v-xlogo" checked /><span class="tog-track"></span></label></div>
+        </div>
+      </div>
+
+      <!-- Watermark -->
+      <div class="sec">
+        <button class="sec-head" data-sec="brand">
+          <span>Watermark</span>
+          <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="sec-body">
+          <div class="row">
+            <label>Text</label>
+            <input type="text" id="wm-text" placeholder="@handle" class="txt-input" />
+          </div>
+          <div class="row">
+            <label>Position</label>
+            <div class="btn-group" id="wm-group">
+              <button data-pos="top-left">TL</button>
+              <button data-pos="top-right">TR</button>
+              <button class="active" data-pos="bottom-right">BR</button>
+              <button data-pos="bottom-left">BL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- PREVIEW -->
+    <section class="preview" id="preview">
+      <div id="loading" class="overlay" style="display:none;">
+        <div class="spinner"></div>
+        <p>Fetching tweet...</p>
+      </div>
+      <div id="error" class="overlay" style="display:none;">
+        <span style="font-size:1.5rem;">⚠️</span>
+        <p id="error-msg">Error</p>
+        <button class="btn-dismiss" id="dismiss-err">Dismiss</button>
+      </div>
+
+      <!-- CENTER URL INPUT (visible always) -->
+      <div id="url-area" class="url-area">
+        <div id="empty" class="empty-msg">
+          <h2>Paste a tweet link to get started</h2>
+        </div>
+        <div class="url-bar" id="url-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <input type="text" id="url-input" placeholder="https://x.com/..." autocomplete="off" spellcheck="false" />
+          <button class="btn-gen" id="gen-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span>Generate</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tweet preview -->
+      <div id="capture-wrap" style="display:none;">
+        <div id="capture-area">
+          <div id="tweet-card">
+            <div class="tc-head">
+              <div class="tc-author">
+                <img id="tc-av" class="tc-av" src="" alt="" />
+                <div class="tc-author-info">
+                  <div class="tc-name-row">
+                    <span id="tc-name" class="tc-name"></span>
+                    <span id="tc-badge" class="tc-verified" style="display:none;">
+                      <svg viewBox="0 0 22 22" width="16" height="16"><path fill="#1d9bf0" d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.852-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.69-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.636.433 1.221.878 1.69.47.446 1.055.752 1.69.883.635.13 1.294.083 1.902-.143.271.587.702 1.084 1.24 1.438.54.354 1.167.551 1.813.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.223 1.261.272 1.893.143.636-.131 1.222-.437 1.69-.883.445-.47.751-1.054.882-1.69.132-.633.083-1.29-.14-1.898.585-.27 1.084-.699 1.439-1.24.354-.54.551-1.169.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg>
+                    </span>
+                  </div>
+                  <span id="tc-handle" class="tc-handle"></span>
+                  <span id="tc-affiliate" class="tc-affiliate" style="display:none;"></span>
+                </div>
+              </div>
+              <div class="tc-xlogo" id="tc-xlogo">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </div>
+            </div>
+            <div id="tc-text" class="tc-text"></div>
+            <div id="tc-media" class="tc-media"></div>
+            <div id="tc-time" class="tc-time"></div>
+            <div id="tc-metrics" class="tc-metrics">
+              <div class="tc-met"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"/></svg><span id="tc-replies">0</span></div>
+              <div class="tc-met"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"/></svg><span id="tc-rts">0</span></div>
+              <div class="tc-met"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/></svg><span id="tc-likes">0</span></div>
+              <div class="tc-met"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M8.75 21V3h2v18h-2zM18.75 21V8.5h2V21h-2zM13.75 21v-9h2v9h-2zM3.75 21v-4h2v4h-2z"/></svg><span id="tc-views">0</span></div>
+            </div>
+          </div>
+          <div id="wm" class="wm bottom-right"></div>
+        </div>
+      </div>
+
+      <!-- Export -->
+      <div id="export-bar" class="export-bar" style="display:none;">
+        <div class="exp-l">
+          <select id="exp-fmt"><option value="png">PNG</option><option value="jpg">JPG</option><option value="svg">SVG</option></select>
+          <select id="exp-scale"><option value="1">Standard</option><option value="2" selected>HD</option><option value="3">Ultra HD</option></select>
+        </div>
+        <div class="exp-r">
+          <button class="btn-exp" id="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+          <button class="btn-exp primary" id="dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

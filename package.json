@@ -1,0 +1,26 @@
+{
+  "name": "tweetshot",
+  "version": "1.0.0",
+  "description": "Convert any tweet into a beautiful, customizable screenshot",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"node server.js\" \"vite --port 3000\"",
+    "build": "vite build",
+    "start": "NODE_ENV=production node server.js",
+    "start:win": "set NODE_ENV=production && node server.js",
+    "preview": "vite preview"
+  },
+  "keywords": ["tweet", "screenshot", "twitter", "x", "image"],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.0",
+    "concurrently": "^9.0.1",
+    "html-to-image": "^1.11.11"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
