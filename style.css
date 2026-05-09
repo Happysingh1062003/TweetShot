@@ -505,7 +505,6 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 5px; }
   border-radius: 16px;
   padding: 24px;
   width: 480px;
-  max-width: 100%;
   font-family: var(--font);
   box-shadow: 0 4px 24px rgba(0,0,0,.08);
   will-change: border-radius, box-shadow;
@@ -758,8 +757,8 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 5px; }
   .sidebar.open { transform: translateX(0); }
 
   .preview {
-    padding: 24px 16px;
-    align-items: center;
+    padding: 24px 0; /* Removing horizontal padding since we handle margins in JS */
+    align-items: flex-start;
     justify-content: flex-start;
     min-height: calc(100vh - 54px);
     overflow: visible;
@@ -781,7 +780,8 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 5px; }
   .btn-gen span { display: none; }
   .btn-gen { padding: 0 14px; min-width: 40px; justify-content: center; }
   .preview {
-    padding: 16px 10px;
+    padding: 16px 0;
+    align-items: flex-start;
     min-height: calc(100vh - 50px);
   }
   .url-bar { height: 46px; border-radius: 12px; }

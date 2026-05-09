@@ -219,11 +219,18 @@ function apply() {
     const availableWidth = window.innerWidth - pad;
     const targetWidth = S.cardWidth + (S.padding * 2);
     const scale = Math.min(1, availableWidth / targetWidth);
+    
     el.wrap.style.transform = `scale(${scale.toFixed(3)})`;
-    el.wrap.style.transformOrigin = 'center top';
+    el.wrap.style.transformOrigin = 'top left';
+    
+    // Center it manually since flex centering clips transformed elements
+    const scaledWidth = targetWidth * scale;
+    const marginLeft = (window.innerWidth - scaledWidth) / 2;
+    el.wrap.style.marginLeft = `${Math.max(0, marginLeft)}px`;
   } else {
     el.wrap.style.transform = '';
     el.wrap.style.transformOrigin = '';
+    el.wrap.style.marginLeft = '';
   }
 }
 
