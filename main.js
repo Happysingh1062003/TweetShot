@@ -7,6 +7,7 @@ const el = {
   error: document.getElementById('error'),
   errMsg: document.getElementById('err-msg'),
   empty: document.getElementById('empty-msg'),
+  dismiss: document.getElementById('btn-dismiss'),
   preview: document.getElementById('preview-section'),
   wrap: document.getElementById('capture-wrap'),
   capture: document.getElementById('capture-area'),
@@ -117,19 +118,27 @@ function applyScale() {
     
     // Fit vertically
     const availableHeight = window.innerHeight - 200;
-    el.wrap.style.transform = '';
     const targetHeight = el.wrap.offsetHeight || 500;
     
     const scaleX = availableWidth / targetWidth;
     const scaleY = availableHeight / targetHeight;
     const scale = Math.min(1, scaleX, scaleY);
     
-    // Use zoom instead of transform to perfectly resize the layout footprint!
-    el.wrap.style.zoom = scale.toFixed(3);
-    el.wrap.style.transform = '';
-    el.wrap.style.transformOrigin = '';
-    el.wrap.style.marginLeft = '';
-    el.wrap.style.marginBottom = '';
+    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    
+    if (isFirefox) {
+      el.wrap.style.transform = `scale(${scale})`;
+      el.wrap.style.transformOrigin = 'top center';
+      el.wrap.style.marginBottom = `-${(1 - scale) * el.wrap.offsetHeight}px`;
+      el.wrap.style.zoom = '';
+    } else {
+      // Use zoom instead of transform to perfectly resize the layout footprint!
+      el.wrap.style.zoom = scale.toFixed(3);
+      el.wrap.style.transform = '';
+      el.wrap.style.transformOrigin = '';
+      el.wrap.style.marginLeft = '';
+      el.wrap.style.marginBottom = '';
+    }
   } else {
     el.wrap.style.zoom = '1';
     el.wrap.style.transform = '';
@@ -144,10 +153,25 @@ async function exportImg() {
   const oTxt = el.dl.innerHTML;
   el.dl.innerHTML = '<svg class="spinner" viewBox="0 0 50 50" style="width:16px;height:16px;stroke:#fff"><circle cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle></svg> Downloading...';
   
+  const oldZoom = el.wrap.style.zoom;
+  const oldTransform = el.wrap.style.transform;
+  const oldOrigin = el.wrap.style.transformOrigin;
+  const oldMargin = el.wrap.style.marginBottom;
+  
+  // Temporarily remove scaling for perfect high-res export
+  el.wrap.style.zoom = '1';
+  el.wrap.style.transform = 'none';
+  el.wrap.style.transformOrigin = 'initial';
+  el.wrap.style.marginBottom = '0';
+  
+  // Wait a moment for layout to recalculate
+  await new Promise(r => setTimeout(r, 50));
+  
   try {
     const blob = await htmlToImage.toBlob(el.capture, {
       pixelRatio: 2,
-      style: { zoom: 1, transform: 'scale(1)', transformOrigin: 'top left' }
+      backgroundColor: null,
+      style: { margin: 0, padding: 0 }
     });
     if (!blob) throw new Error('Blob empty');
     const u = URL.createObjectURL(blob);
@@ -159,6 +183,10 @@ async function exportImg() {
   } catch (e) {
     showErr('Failed to download image.');
   } finally {
+    el.wrap.style.zoom = oldZoom;
+    el.wrap.style.transform = oldTransform;
+    el.wrap.style.transformOrigin = oldOrigin;
+    el.wrap.style.marginBottom = oldMargin;
     el.dl.innerHTML = oTxt;
   }
 }

@@ -49,9 +49,9 @@ function normalize(d) {
       replies: d.conversation_count || d.reply_count || 0,
       views: parseInt(d.views?.count || d.ext_views?.count || '0', 10),
     },
-    media: (d.photos || d.mediaDetails || []).map(m => ({
+    media: (d.photos || d.mediaDetails || (d.video?.poster ? [d.video] : [])).map(m => ({
       type: m.type || 'photo',
-      url: m.url || m.media_url_https || '',
+      url: m.url || m.media_url_https || m.poster || '',
       width: m.width || 0, height: m.height || 0,
     })),
     createdAt: d.created_at || new Date().toISOString(),
@@ -79,8 +79,8 @@ function normalizeFx(d) {
       likes: t.likes || 0, retweets: t.retweets || 0,
       replies: t.replies || 0, views: t.views || 0,
     },
-    media: (t.media?.photos || t.media?.all || []).map(m => ({
-      type: m.type || 'photo', url: m.url || '',
+    media: (t.media?.all || t.media?.photos || []).map(m => ({
+      type: m.type || 'photo', url: m.thumbnail_url || m.url || '',
       width: m.width || 0, height: m.height || 0,
     })),
     createdAt: t.created_at || new Date().toISOString(),

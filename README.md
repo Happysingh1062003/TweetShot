@@ -1,4 +1,4 @@
-# 📸 TweetShot
+# 📸 TWEETBOOK
 
 **Convert any tweet into a beautiful, customizable screenshot.**
 
@@ -104,7 +104,7 @@ CMD ["node", "server.js"]
 ## 🏛️ Architecture
 
 ```
-TweetShot/
+TWEETBOOK/
 ├── index.html          # Single-page app entry
 ├── style.css           # Design system & all styles
 ├── main.js             # App logic, state, rendering, export
@@ -143,10 +143,10 @@ Twitter's APIs don't set CORS headers for browser requests. The Express server a
 
 ## 📝 License
 
-MIT © TweetShot
+MIT © TWEETBOOK
 
 ---
 
 <p align="center">
-  Built with ⚡ by TweetShot
+  Built with ⚡ by TWEETBOOK
 </p>

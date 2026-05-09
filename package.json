@@ -1,5 +1,5 @@
 {
-  "name": "tweetshot",
+  "name": "tweetbook",
   "version": "1.0.0",
   "description": "Convert any tweet into a beautiful, customizable screenshot",
   "type": "module",
