@@ -155,6 +155,7 @@ function render(tweet) {
   (tweet.media || []).forEach(m => {
     if (m.url && m.type === 'photo') {
       const img = document.createElement('img');
+      img.onload = scheduleApply; // Recalculate scale when image finishes loading
       img.src = `/api/proxy-image?url=${encodeURIComponent(m.url)}`;
       img.alt = 'Media';
       el.media.appendChild(img);
@@ -218,19 +219,37 @@ function apply() {
     const pad = window.innerWidth <= 480 ? 24 : 32;
     const availableWidth = window.innerWidth - pad;
     const targetWidth = S.cardWidth + (S.padding * 2);
-    const scale = Math.min(1, availableWidth / targetWidth);
+    
+    // Calculate height constraints so it fully fits on screen
+    // Header(50) + URL bar(60) + Export Bar(110) + Padding(30) = ~250px used
+    const availableHeight = window.innerHeight - 250;
+    
+    // Temporarily remove transform to get true height
+    el.wrap.style.transform = '';
+    const targetHeight = el.wrap.offsetHeight || 500; // fallback if 0
+    
+    const scaleX = availableWidth / targetWidth;
+    const scaleY = availableHeight / targetHeight;
+    
+    // Pick the smaller scale so it perfectly fits both horizontally and vertically
+    const scale = Math.min(1, scaleX, scaleY);
     
     el.wrap.style.transform = `scale(${scale.toFixed(3)})`;
     el.wrap.style.transformOrigin = 'top left';
     
-    // Center it manually since flex centering clips transformed elements
+    // Center it manually
     const scaledWidth = targetWidth * scale;
     const marginLeft = (window.innerWidth - scaledWidth) / 2;
     el.wrap.style.marginLeft = `${Math.max(0, marginLeft)}px`;
+    
+    // Remove the extra layout height footprint caused by scaling
+    const scaledHeight = targetHeight * scale;
+    el.wrap.style.marginBottom = `-${targetHeight - scaledHeight}px`;
   } else {
     el.wrap.style.transform = '';
     el.wrap.style.transformOrigin = '';
     el.wrap.style.marginLeft = '';
+    el.wrap.style.marginBottom = '';
   }
 }
 
