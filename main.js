@@ -3,6 +3,7 @@ import * as htmlToImage from 'html-to-image';
 const el = {
   url: document.getElementById('url-input'),
   gen: document.getElementById('btn-gen'),
+  paste: document.getElementById('btn-paste'),
   loading: document.getElementById('loading'),
   error: document.getElementById('error'),
   errMsg: document.getElementById('err-msg'),
@@ -30,13 +31,29 @@ const el = {
 };
 
 let currentData = null;
+let lastWidth = window.innerWidth;
 
 function init() {
   el.gen.addEventListener('click', generate);
+  if (el.paste) el.paste.addEventListener('click', pasteUrl);
   el.url.addEventListener('keydown', e => { if (e.key === 'Enter') generate(); });
   el.dismiss.addEventListener('click', () => el.error.style.display = 'none');
   el.dl.addEventListener('click', () => exportImg());
   window.addEventListener('resize', applyScale);
+}
+
+async function pasteUrl() {
+  try {
+    const text = await navigator.clipboard.readText();
+    if (text) {
+      el.url.value = text;
+      // Automatically attempt to generate
+      generate();
+    }
+  } catch (err) {
+    console.error('Failed to read clipboard: ', err);
+    showErr('Clipboard permission denied. Please paste manually.');
+  }
 }
 
 async function generate() {
@@ -112,8 +129,13 @@ function render(tweet) {
   applyScale();
 }
 
-function applyScale() {
+function applyScale(e) {
   if (!currentData || !el.wrap) return;
+
+  if (e && e.type === 'resize' && window.innerWidth <= 600 && window.innerWidth === lastWidth) {
+    return;
+  }
+  lastWidth = window.innerWidth;
 
   if (window.innerWidth <= 600) {
     const availableWidth = window.innerWidth - 32;

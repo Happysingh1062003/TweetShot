@@ -113,6 +113,25 @@ body.has-tweet .logo-area {
 }
 .url-bar input::placeholder { color: #8b98a5; }
 
+.btn-paste {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  color: #888888;
+  margin-right: 8px;
+  transition: all 0.2s var(--ease);
+}
+.btn-paste:hover {
+  background: #f0f0f0;
+  color: #111111;
+}
+.btn-paste:active {
+  transform: scale(0.95);
+}
+
 .btn-gen {
   display: flex;
   align-items: center;

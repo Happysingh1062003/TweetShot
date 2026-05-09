@@ -23,14 +23,17 @@
     <div class="hero-section" id="hero-section">
       <div class="logo-area">
         <!-- Minimal Logo -->
-        <svg viewBox="0 0 240 40" height="28" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="32" fill="#111111" font-family="'Inter', system-ui, sans-serif" font-weight="800" font-size="28" letter-spacing="2">TWEETBOOK</text>
+        <svg viewBox="0 0 240 40" height="28" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: 0 auto;">
+          <text x="50%" y="32" text-anchor="middle" fill="#111111" font-family="'Inter', system-ui, sans-serif" font-weight="800" font-size="28" letter-spacing="2">TWEETBOOK</text>
         </svg>
       </div>
 
       <div class="url-wrapper">
         <div class="url-bar">
           <input type="text" id="url-input" placeholder="Paste a Twitter or X link..." autocomplete="off" spellcheck="false" />
+          <button id="btn-paste" class="btn-paste" title="Paste from clipboard">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+          </button>
           <button id="btn-gen" class="btn-gen">
             <span>Capture</span>
             <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
