@@ -64,6 +64,7 @@ function showErr(msg) {
 
 function render(tweet) {
   currentData = tweet;
+  document.body.classList.add('has-tweet');
   el.empty.style.display = 'none';
   el.wrap.style.display = 'flex';
   el.exportBar.style.display = 'flex';
