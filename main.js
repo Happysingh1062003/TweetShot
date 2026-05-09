@@ -88,7 +88,7 @@ function render(tweet) {
   // Media
   el.media.innerHTML = '';
   (tweet.media || []).forEach(m => {
-    if (m.url && m.type === 'photo') {
+    if (m.url) {
       const img = document.createElement('img');
       img.onload = applyScale;
       img.src = `/api/proxy-image?url=${encodeURIComponent(m.url)}`;
@@ -103,11 +103,7 @@ function render(tweet) {
   el.replies.textContent = fmtNum(tweet.metrics.replies);
   el.views.textContent = fmtNum(tweet.metrics.views);
 
-  // Apply default card styling
-  el.card.style.width = '480px';
-  el.card.style.borderRadius = '16px';
-  el.card.style.border = '1px solid rgba(0,0,0,0.1)';
-  el.card.style.boxShadow = '0 8px 40px rgba(0,0,0,0.08)';
+
 
   applyScale();
 }
