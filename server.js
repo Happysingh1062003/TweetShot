@@ -90,12 +90,6 @@ async function fetchSyndication(id) {
   });
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   const d = await r.json();
-  console.log('[DEBUG] Raw syndication keys:', Object.keys(d));
-  console.log('[DEBUG] User object:', JSON.stringify(d.user, null, 2));
-  console.log('[DEBUG] Top-level verified fields:', {
-    verified: d.verified, is_blue_verified: d.is_blue_verified,
-    verified_type: d.verified_type, blue_verified: d.blue_verified,
-  });
   return normalize(d);
 }
 
@@ -105,9 +99,6 @@ async function fetchFxTwitter(id) {
   });
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   const d = await r.json();
-  const t = d.tweet || d;
-  console.log('[DEBUG FX] author:', JSON.stringify(t.author, null, 2));
-  console.log('[DEBUG FX] tweet keys:', Object.keys(t));
   return normalizeFx(d);
 }
 

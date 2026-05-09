@@ -213,14 +213,17 @@ function apply() {
   el.wm.textContent = S.wmText;
   el.wm.className = 'wm ' + S.wmPos;
 
-  // Responsive scaling
+  // Responsive scaling for mobile
   if (window.innerWidth <= 900) {
-    const availableWidth = window.innerWidth - 48;
+    const pad = window.innerWidth <= 480 ? 24 : 32;
+    const availableWidth = window.innerWidth - pad;
     const targetWidth = S.cardWidth + (S.padding * 2);
     const scale = Math.min(1, availableWidth / targetWidth);
-    document.documentElement.style.setProperty('--mobile-scale', scale.toFixed(3));
+    el.wrap.style.transform = `scale(${scale.toFixed(3)})`;
+    el.wrap.style.transformOrigin = 'center top';
   } else {
-    document.documentElement.style.setProperty('--mobile-scale', 1);
+    el.wrap.style.transform = '';
+    el.wrap.style.transformOrigin = '';
   }
 }
 
