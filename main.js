@@ -68,6 +68,9 @@ function render(tweet) {
   document.body.classList.add('has-tweet');
   el.preview.style.display = 'flex';
   el.wrap.style.display = 'flex';
+  el.wrap.style.flexDirection = 'column';
+  el.wrap.style.alignItems = 'center';
+  el.wrap.style.gap = '24px';
   el.exportBar.style.display = 'flex';
 
   // Avatar
@@ -114,7 +117,7 @@ function applyScale() {
 
   if (window.innerWidth <= 600) {
     const availableWidth = window.innerWidth - 32;
-    const targetWidth = 520; // Exact CSS width
+    const targetWidth = 500; // Exact CSS width
     
     // Fit vertically
     const availableHeight = window.innerHeight - 200;

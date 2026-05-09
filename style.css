@@ -12,27 +12,20 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: var(--font);
-  background-color: #fafbfc;
-  color: var(--text);
+  background-color: #fafafa;
+  color: #111111;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   line-height: 1.5;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* SUBTLE MESH BACKGROUND */
 .bg-mesh {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(210,100%,96%,1) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(280,100%,97%,1) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, hsla(220,100%,96%,1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, hsla(340,100%,97%,1) 0px, transparent 50%);
-  opacity: 0.6;
+  display: none;
 }
 
 button { cursor: pointer; font-family: inherit; border: none; background: none; color: inherit; }
@@ -95,25 +88,17 @@ body.has-tweet .logo-area {
   align-items: center;
   width: 100%;
   height: 64px;
-  background: var(--surface);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 32px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
   padding: 0 8px 0 24px;
-  box-shadow: 
-    0 4px 6px rgba(0,0,0,0.02),
-    0 10px 24px rgba(0,0,0,0.04),
-    inset 0 0 0 1px rgba(255,255,255,0.5);
-  transition: box-shadow 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.2s var(--ease);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+  transition: all 0.2s var(--ease);
 }
 .url-bar:focus-within {
-  border-color: rgba(29, 155, 240, 0.4);
-  box-shadow: 
-    0 10px 30px rgba(29, 155, 240, 0.1),
-    0 0 0 4px rgba(29, 155, 240, 0.1),
-    inset 0 0 0 1px rgba(255,255,255,0.5);
-  transform: translateY(-2px);
+  border-color: #000000;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
 }
 
 .url-bar input {
@@ -134,21 +119,21 @@ body.has-tweet .logo-area {
   gap: 8px;
   height: 48px;
   padding: 0 24px;
-  border-radius: 24px;
-  background: #000;
-  color: #fff;
-  font-weight: 600;
+  border-radius: 8px;
+  background: #000000;
+  color: #ffffff;
+  font-weight: 500;
   font-size: .95rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s, background 0.2s;
+  border: none;
+  box-shadow: none;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
 }
 .btn-gen:hover {
-  background: #111;
-  transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  background: #222222;
+  transform: translateY(-1px);
 }
 .btn-gen:active {
-  transform: scale(0.96);
+  transform: scale(0.98);
 }
 
 
@@ -173,7 +158,7 @@ body.has-tweet .logo-area {
 /* CAPTURE WRAPPER */
 #capture-wrap {
   position: relative;
-  border-radius: 24px;
+  border-radius: 0;
   margin: 0 auto;
 }
 
@@ -185,59 +170,57 @@ body.has-tweet .logo-area {
 /* TWEET CARD (The beautifully pure output) */
 #tweet-card {
   background: #ffffff;
-  color: #0f1419;
-  border-radius: 20px;
-  padding: 32px;
-  width: 520px;
+  color: #111111;
+  border-radius: 0;
+  padding: 20px;
+  width: 500px;
   font-family: var(--font);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  /* This shadow is only for the web preview, it won't be exported if html-to-image is configured to drop it, or it will be, which looks great! */
-  box-shadow: 
-    0 20px 60px -10px rgba(0,0,0,0.08),
-    0 10px 30px -15px rgba(0,0,0,0.04);
+  border: 1px solid #eaeaea;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
 }
 
 /* TWEET CARD INTERNAL STYLES */
-.tc-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.tc-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
 .tc-author { display: flex; gap: 12px; align-items: center; }
-.tc-av { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.tc-av { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
 .tc-author-info { display: flex; flex-direction: column; gap: 2px; }
 .tc-name-row { display: flex; align-items: center; gap: 4px; }
-.tc-name { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.3px; }
-.tc-handle { color: #536471; font-size: 0.95rem; }
-.tc-xlogo { color: #0f1419; opacity: 0.9; }
+.tc-name { font-weight: 600; font-size: 1.05rem; letter-spacing: -0.2px; }
+.tc-handle { color: #888888; font-size: 0.95rem; }
+.tc-xlogo { color: #111111; opacity: 0.3; }
 
 .tc-text {
-  font-size: 1.3rem;
-  line-height: 1.45;
-  letter-spacing: -0.2px;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: -0.3px;
   white-space: pre-wrap;
   word-break: break-word;
-  margin-bottom: 16px;
-  color: #0f1419;
+  margin-bottom: 12px;
+  color: #111111;
 }
 
-.tc-media { display: flex; flex-direction: column; gap: 12px; }
+.tc-media { display: flex; flex-direction: column; gap: 8px; }
 .tc-media img {
-  width: 100%; display: block; border-radius: 16px;
+  width: 100%; display: block; border-radius: 0;
   border: 1px solid rgba(0,0,0,.06);
 }
 
 .tc-time {
-  color: #536471;
-  font-size: 0.95rem;
-  margin: 16px 0;
+  color: #888888;
+  font-size: 0.9rem;
+  margin: 12px 0;
 }
 
 .tc-metrics {
   display: flex;
-  gap: 28px;
-  padding-top: 16px;
-  border-top: 1px solid #eff3f4;
+  gap: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #f2f2f2;
 }
 .tc-met {
   display: flex; align-items: center; gap: 8px;
-  color: #536471; font-size: 0.95rem; font-weight: 500;
+  color: #888888; font-size: 0.9rem; font-weight: 400;
 }
 
 /* EXPORT BAR */
@@ -245,8 +228,6 @@ body.has-tweet .logo-area {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  margin-top: 40px;
   width: 100%;
 }
 
@@ -256,19 +237,20 @@ body.has-tweet .logo-area {
   gap: 10px;
   height: 52px;
   padding: 0 32px;
-  border-radius: 26px;
-  background: #000;
-  color: #fff;
-  font-weight: 600;
+  border-radius: 8px;
+  background: #000000;
+  color: #ffffff;
+  font-weight: 500;
   font-size: 1rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+  border: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
 }
 .btn-exp:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+  background: #222222;
+  transform: translateY(-1px);
 }
-.btn-exp:active { transform: scale(0.96); }
+.btn-exp:active { transform: scale(0.98); }
 
 /* OVERLAYS (Loading / Errors) */
 .overlay {
@@ -308,11 +290,11 @@ body.has-tweet .logo-area {
 
 /* MOBILE RESPONSIVENESS */
 @media (max-width: 600px) {
-  .logo-area h1 { font-size: 1.6rem; }
-  .url-bar { height: 56px; border-radius: 28px; padding-left: 16px; }
+  .logo-area svg { height: 24px; width: auto; }
+  .url-bar { height: 56px; padding-left: 16px; }
   .url-bar input { font-size: 16px; } /* iOS zoom prevention */
   .btn-gen span { display: none; }
-  .btn-gen { padding: 0 20px; height: 42px; border-radius: 21px; }
+  .btn-gen { padding: 0 16px; height: 40px; }
   
   body.has-tweet .hero-section { min-height: 120px; padding-bottom: 20px; }
   .preview-section { padding: 0 16px 40px; }
