@@ -7,7 +7,6 @@ const el = {
   error: document.getElementById('error'),
   errMsg: document.getElementById('err-msg'),
   dismiss: document.getElementById('btn-dismiss'),
-  empty: document.getElementById('empty-msg'),
   wrap: document.getElementById('capture-wrap'),
   capture: document.getElementById('capture-area'),
   card: document.getElementById('tweet-card'),
@@ -65,7 +64,6 @@ function showErr(msg) {
 function render(tweet) {
   currentData = tweet;
   document.body.classList.add('has-tweet');
-  el.empty.style.display = 'none';
   el.wrap.style.display = 'flex';
   el.exportBar.style.display = 'flex';
 
