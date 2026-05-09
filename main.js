@@ -6,7 +6,8 @@ const el = {
   loading: document.getElementById('loading'),
   error: document.getElementById('error'),
   errMsg: document.getElementById('err-msg'),
-  dismiss: document.getElementById('btn-dismiss'),
+  empty: document.getElementById('empty-msg'),
+  preview: document.getElementById('preview-section'),
   wrap: document.getElementById('capture-wrap'),
   capture: document.getElementById('capture-area'),
   card: document.getElementById('tweet-card'),
@@ -64,6 +65,7 @@ function showErr(msg) {
 function render(tweet) {
   currentData = tweet;
   document.body.classList.add('has-tweet');
+  el.preview.style.display = 'flex';
   el.wrap.style.display = 'flex';
   el.exportBar.style.display = 'flex';
 
