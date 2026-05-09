@@ -117,7 +117,7 @@ function applyScale() {
 
   if (window.innerWidth <= 600) {
     const availableWidth = window.innerWidth - 32;
-    const targetWidth = 480; // card width
+    const targetWidth = 520; // Exact CSS width
     
     // Fit vertically
     const availableHeight = window.innerHeight - 200;
@@ -129,7 +129,12 @@ function applyScale() {
     const scale = Math.min(1, scaleX, scaleY);
     
     el.wrap.style.transform = `scale(${scale.toFixed(3)})`;
-    el.wrap.style.transformOrigin = 'top center';
+    el.wrap.style.transformOrigin = 'top left';
+    
+    // Center it manually to bypass flexbox clipping
+    const scaledWidth = targetWidth * scale;
+    const marginLeft = (window.innerWidth - scaledWidth) / 2;
+    el.wrap.style.marginLeft = `${Math.max(0, marginLeft)}px`;
     
     // Remove extra height footprint
     const scaledHeight = targetHeight * scale;
@@ -137,6 +142,7 @@ function applyScale() {
   } else {
     el.wrap.style.transform = '';
     el.wrap.style.transformOrigin = '';
+    el.wrap.style.marginLeft = '';
     el.wrap.style.marginBottom = '';
   }
 }
