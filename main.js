@@ -128,18 +128,14 @@ function applyScale() {
     const scaleY = availableHeight / targetHeight;
     const scale = Math.min(1, scaleX, scaleY);
     
-    el.wrap.style.transform = `scale(${scale.toFixed(3)})`;
-    el.wrap.style.transformOrigin = 'top left';
-    
-    // Center it manually to bypass flexbox clipping
-    const scaledWidth = targetWidth * scale;
-    const marginLeft = (window.innerWidth - scaledWidth) / 2;
-    el.wrap.style.marginLeft = `${Math.max(0, marginLeft)}px`;
-    
-    // Remove extra height footprint
-    const scaledHeight = targetHeight * scale;
-    el.wrap.style.marginBottom = `-${targetHeight - scaledHeight}px`;
+    // Use zoom instead of transform to perfectly resize the layout footprint!
+    el.wrap.style.zoom = scale.toFixed(3);
+    el.wrap.style.transform = '';
+    el.wrap.style.transformOrigin = '';
+    el.wrap.style.marginLeft = '';
+    el.wrap.style.marginBottom = '';
   } else {
+    el.wrap.style.zoom = '1';
     el.wrap.style.transform = '';
     el.wrap.style.transformOrigin = '';
     el.wrap.style.marginLeft = '';
@@ -155,7 +151,7 @@ async function exportImg() {
   try {
     const blob = await htmlToImage.toBlob(el.capture, {
       pixelRatio: 2,
-      style: { transform: 'scale(1)', transformOrigin: 'top left' }
+      style: { zoom: 1, transform: 'scale(1)', transformOrigin: 'top left' }
     });
     if (!blob) throw new Error('Blob empty');
     const u = URL.createObjectURL(blob);
