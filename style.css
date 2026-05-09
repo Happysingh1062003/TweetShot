@@ -291,6 +291,8 @@ body.has-tweet .logo-area {
 /* MOBILE RESPONSIVENESS */
 @media (max-width: 600px) {
   .logo-area svg { height: 24px; width: auto; }
+  body.has-tweet .logo-area { transform: none; margin-bottom: 16px; }
+  
   .url-bar { height: 56px; padding-left: 16px; }
   .url-bar input { font-size: 16px; } /* iOS zoom prevention */
   .btn-gen span { display: none; }
